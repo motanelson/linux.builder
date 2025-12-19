@@ -52,7 +52,29 @@ while(True):
     if iii=="copy" or iii=="cp":
         copys(ii[1],ii[2])
         t=False
-
+    if iii=="cat" or iii=="type":
+       t=False
+       iiii=i.split(">")
+       aa=iiii[0].strip()
+       aa=removessp(aa)
+       r=""
+       aa=aa.split(" ")
+       index=0
+       for n in aa:
+          if index!=0:
+              f1=open(n,"r")
+              rr=f1.read()
+              r=r+rr
+              f1.close()
+          index=index+1  
+       if len(iiii)>1:
+           f1=open(iiii[1].strip(),"w")
+           f1.write(r)
+           f1.close()
+       else:
+           print(r)
+    if iii=="exit":
+       break
     if t:
         os.system(i)
     
