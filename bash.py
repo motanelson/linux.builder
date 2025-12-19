@@ -106,7 +106,10 @@ while(True):
            
            r=r.replace("'"," ")
            print(str(r))
-
+    if iii=="label":
+        t=False
+        r="\n".join(os.listdrives())
+        print(r)
     if t:
         os.system(i)
     
