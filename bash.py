@@ -1,5 +1,6 @@
 import os
 import time
+from datetime import datetime
 def editline(i):
     r=""
     if os.path.exists(i):
@@ -136,6 +137,11 @@ while(True):
 
         if len(ii)>1:
             time.sleep(int(ii[1].strip()))
+    if iii=="time" or iii=="date":
+        today = datetime.today()
+        formatted_date = today.strftime("%d-%b-%y")
+        t=False
+        print(formatted_date)
     if t:
         os.system(i)
     
