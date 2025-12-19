@@ -117,7 +117,8 @@ while(True):
         t=False
         if len(ii)>1:
             if(len(ii[1])>1):
-                print("\033[4$1;30$1m")
+                r=ii[1]
+                print("\033[4$1;3$2m".replace("$1",r[0:1]).replace("$2",r[1:2]))
     if t:
         os.system(i)
     
