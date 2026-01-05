@@ -53,10 +53,10 @@ class RamDiskBuilderGUI:
             filetypes=[("elf files", "*"), ("All files", "*")]
         )
         if 0==0:
-                os.system("mkdir /mnt/rams > /dev/null")
-                os.system("rm initrd > /dev/null")
-                os.system("cp init initrd > /dev/null")
-                os.system("umount /mnt/rams > /dev/null")
+                os.system("mkdir /mnt/rams 2> /dev/null")
+                os.system("rm initrd 2> /dev/null")
+                os.system("cp init initrd 2> /dev/null")
+                os.system("umount /mnt/rams 2> /dev/null")
                 os.system("mount -o loop initrd /mnt/rams > /dev/null")
                 
         if not paths:
@@ -87,11 +87,17 @@ class RamDiskBuilderGUI:
             return
 
         try:
-            os.system("umount /mnt/rams > /dev/null")
-            os.system("rm ./root/isolinux/initrd.gz > /dev/null")
-            os.system("rm initrd.gz > /dev/null")
-            os.system("gzip initrd > /dev/null")
-            os.system("cp initrd.gz ./root/isolinux > /dev/null")
+            os.system("umount /mnt/rams 2> /dev/null")
+            os.system("rm ./root/isolinux/initrd.gz 2> /dev/null")
+            os.system("rm initrd.gz 2> /dev/null")
+            os.system("gzip initrd 2> /dev/null")
+            
+            os.system("mkdir ./root 2> /dev/null")
+            os.system("cp isolinux.bin ./root 2> /dev/null")
+            os.system("cp isolinux.cfg ./root 2> /dev/null")
+            os.system("cp vmlinuz ./root 2> /dev/null")
+            os.system("cp initrd.gz ./root 2> /dev/null")
+
             ss='genisoimage -o $1 -input-charset utf-8 -b "isolinux/isolinux.bin" -no-emul-boot -boot-load-size 4  -boot-info-table "./root" '.replace("$1",path)
             print(ss)
             os.system(ss)
