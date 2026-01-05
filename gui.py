@@ -98,7 +98,7 @@ class RamDiskBuilderGUI:
             os.system("cp vmlinuz ./root 2> /dev/null")
             os.system("cp initrd.gz ./root 2> /dev/null")
 
-            ss='genisoimage -o $1 -input-charset utf-8 -b "isolinux/isolinux.bin" -no-emul-boot -boot-load-size 4  -boot-info-table "./root" '.replace("$1",path)
+            ss='genisoimage -o $1 -input-charset utf-8 -b "isolinux.bin" -no-emul-boot -boot-load-size 4  -boot-info-table "./root" '.replace("$1",path)
             print(ss)
             os.system(ss)
 
