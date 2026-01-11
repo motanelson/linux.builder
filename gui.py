@@ -53,11 +53,10 @@ class RamDiskBuilderGUI:
             filetypes=[("elf files", "*"), ("All files", "*")]
         )
         if 0==0:
-                os.system("mkdir /mnt/rams 2> /dev/null")
-                os.system("rm initrd 2> /dev/null")
-                os.system("cp init initrd 2> /dev/null")
-                os.system("umount /mnt/rams 2> /dev/null")
-                os.system("mount -o loop initrd /mnt/rams > /dev/null")
+                os.system("mkdir /tmp/root 2> /dev/null")
+                os.system('printf "y\n" | rm /tmp/root/* 2> /dev/null')
+                os.system('printf "y\n" | rm /tmp/root/*.* 2> /dev/null')
+               
                 
         if not paths:
             return
@@ -65,13 +64,12 @@ class RamDiskBuilderGUI:
         for path in paths:
             #try:
             if 0==0:
-                os.system("cp $1 /mnt/rams ".replace("$1",path))
+                os.system("cp $1 /tmp/root/ ".replace("$1",path))
                 
                 self.log(f"[OK] Carregado: {path} \n")
             #except Exception as e:
             #    self.log(f"[ERRO] {path}: {e}\n")
-        os.system("chmod 777 /mnt/rams/* ")
-        os.system("umount /mnt/rams > /dev/null")
+        
         
 
     def save_file(self):
@@ -87,18 +85,15 @@ class RamDiskBuilderGUI:
             return
 
         try:
-            os.system("umount /mnt/rams 2> /dev/null")
-            os.system("rm ./root/isolinux/initrd.gz 2> /dev/null")
-            os.system("rm initrd.gz 2> /dev/null")
-            os.system("gzip initrd 2> /dev/null")
+            os.system('cp isolinux.bin /tmp/root 2> /dev/null')
+            os.system('cp isolinux.cfg /tmp/root 2> /dev/null')
+            os.system('cp vmlinuz /tmp/root 2> /dev/null')
+            os.system('cp initrd.gz /tmp/root 2> /dev/null')
             
-            os.system("mkdir ./root 2> /dev/null")
-            os.system("cp isolinux.bin ./root 2> /dev/null")
-            os.system("cp isolinux.cfg ./root 2> /dev/null")
-            os.system("cp vmlinuz ./root 2> /dev/null")
-            os.system("cp initrd.gz ./root 2> /dev/null")
+            os.system('chmod 777 /tmp/root/*')
+            
 
-            ss='genisoimage -o $1 -input-charset utf-8 -b "isolinux.bin" -no-emul-boot -boot-load-size 4  -boot-info-table "./root" '.replace("$1",path)
+            ss='genisoimage -o $1 -input-charset utf-8 -b "isolinux.bin" -no-emul-boot -boot-load-size 4  -boot-info-table "/tmp/root" '.replace("$1",path)
             print(ss)
             os.system(ss)
 
@@ -111,9 +106,9 @@ class RamDiskBuilderGUI:
         self.text.delete("1.0", "end")
         self.log("memory clear.\n")
         if 0==0:
-                os.system("mkdir /mnt/rams > /dev/null")
-                os.system("cp init initrd > /dev/null")
-                os.system("umount /mnt/rams > /dev/null")
+                os.system("mkdir /tmp/root 2> /dev/null")
+                os.system('printf "y\n" | rm /tmp/root/* 2> /dev/null')
+                os.system('printf "y\n" | rm /tmp/root/*.* 2> /dev/null')
 
 
 
